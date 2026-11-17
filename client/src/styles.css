@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --noir: #0B0A09;
+  --ivory: #F5EFE6;
+  --gold: #C9A66B;
+  --gold-light: #E7CF9F;
+  --accent: #C9A66B;
+  --accent-soft: #F3E6C8;
+  --ease: cubic-bezier(.16, 1, .3, 1);
+}
+
+html { -webkit-text-size-adjust: 100%; }
+html, body { overflow-x: clip; }
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
+
+body {
+  @apply bg-ivory-50 text-noir font-sans antialiased;
+  font-feature-settings: 'ss01', 'cv11';
+}
+html[dir='rtl'] body { @apply font-arabic; }
+html[dir='rtl'] .font-display { font-family: 'Noto Kufi Arabic', 'Bodoni Moda', serif; font-weight: 500; letter-spacing: 0; }
+
+::selection { background: var(--gold); color: var(--noir); }
+
+/* film grain overlay for a tactile, editorial feel */
+.grain::after {
+  content: '';
+  position: fixed; inset: -50%;
+  pointer-events: none; z-index: 60; opacity: .05;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+  animation: grain 8s steps(10) infinite;
+}
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); } 10% { transform: translate(-5%, -10%); } 30% { transform: translate(3%, -15%); }
+  50% { transform: translate(12%, 9%); } 70% { transform: translate(9%, 4%); } 90% { transform: translate(-1%, 7%); }
+}
+
+@layer components {
+  .container-q { @apply mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-14; }
+  .eyebrow { @apply text-[11px] font-semibold uppercase tracking-eyebrow; }
+  html[dir='rtl'] .eyebrow { letter-spacing: 0; font-size: 13px; }
+  .h-display { @apply font-display leading-[0.95] tracking-[-0.02em]; }
+  .gold-text {
+    background: linear-gradient(100deg, #9C7A3F 0%, #E7CF9F 30%, #C9A66B 50%, #F3E6C8 70%, #9C7A3F 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: shine 6s linear infinite;
+  }
+  .btn {
+    @apply relative inline-flex items-center justify-center gap-2.5 overflow-hidden rounded-full px-7 h-12 text-[12px] font-semibold uppercase tracking-[0.18em] transition-all duration-500 ease-lux select-none;
+  }
+  html[dir='rtl'] .btn { letter-spacing: 0; font-size: 14px; }
+  .btn:disabled { @apply opacity-50 pointer-events-none; }
+  .btn-noir { @apply bg-noir text-ivory hover:bg-noir-700; }
+  .btn-gold { @apply text-noir; background: linear-gradient(110deg, #B8925A, #E7CF9F 45%, #C9A66B 60%, #F3E6C8); background-size: 200% 100%; }
+  .btn-gold:hover { background-position: 100% 0; box-shadow: 0 10px 40px -10px rgba(201, 166, 107, .7); }
+  .btn-ghost { @apply border border-current bg-transparent hover:bg-noir hover:text-ivory hover:border-noir; }
+  .btn-ghost-light { @apply border border-ivory/40 text-ivory bg-transparent hover:bg-ivory hover:text-noir; }
+  .btn .btn-shine { @apply pointer-events-none absolute inset-0 -translate-x-full; background: linear-gradient(110deg, transparent 30%, rgba(255,255,255,.45) 50%, transparent 70%); transition: transform .9s var(--ease); }
+  .btn:hover .btn-shine { @apply translate-x-full; }
+
+  .field { @apply w-full rounded-2xl border border-noir/10 bg-white px-4 h-[52px] text-[15px] outline-none transition placeholder:text-mute/70 focus:border-gold focus:ring-4 focus:ring-gold/15; }
+  textarea.field { @apply h-auto py-3; }
+  .field-label { @apply mb-1.5 block text-[12px] font-semibold text-ink/80; }
+  .card-lux { @apply rounded-[28px] bg-white shadow-[0_1px_0_rgba(0,0,0,.03),0_30px_60px_-30px_rgba(60,40,10,.18)]; }
+  .link-u { @apply relative; }
+  .link-u::after { content: ''; @apply absolute left-0 -bottom-0.5 h-px w-full origin-right scale-x-0 bg-current transition-transform duration-500 ease-lux; }
+  .link-u:hover::after { @apply origin-left scale-x-100; }
+}
+
+@keyframes shine { to { background-position: 200% center; } }
+@keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes float { 0%, 100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-14px) rotate(1deg); } }
+@keyframes spin-slow { to { transform: rotate(360deg); } }
+@keyframes pulse-ring { 0% { transform: scale(.8); opacity: .7; } 100% { transform: scale(2.2); opacity: 0; } }
+
+.animate-marquee { animation: marquee var(--marquee-speed, 38s) linear infinite; }
+html[dir='rtl'] .animate-marquee { animation-direction: reverse; }
+.animate-float { animation: float 7s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 28s linear infinite; }
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { scrollbar-width: none; }
+
+/* custom cursor */
+.q-cursor { position: fixed; top: 0; left: 0; z-index: 9999; pointer-events: none; mix-blend-mode: difference; }
+@media (hover: none) { .q-cursor { display: none; } }
+
+/* admin */
+.admin-root { @apply bg-[#F7F4EF] text-noir min-h-screen font-sans; }
+.admin-card { @apply rounded-2xl border border-noir/[0.06] bg-white shadow-[0_1px_2px_rgba(0,0,0,.04)]; }
+.admin-input { @apply w-full rounded-xl border border-noir/10 bg-white px-3 h-10 text-sm outline-none transition focus:border-gold focus:ring-4 focus:ring-gold/15; }
+textarea.admin-input { @apply h-auto py-2; }
+.admin-btn { @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 h-10 text-sm font-semibold transition disabled:opacity-50; }
+.admin-btn-primary { @apply admin-btn bg-noir text-ivory hover:bg-noir-700; }
+.admin-btn-ghost { @apply admin-btn border border-noir/10 bg-white hover:bg-ivory-100; }
+.admin-label { @apply mb-1 block text-[11px] font-semibold uppercase tracking-wider text-mute; }
+.admin-table th { @apply px-4 py-3 text-left text-[11px] font-semibold uppercase tracking-wider text-mute bg-ivory-50 border-b border-noir/5; }
+.admin-table td { @apply px-4 py-3 border-b border-noir/5 text-sm; }
+.admin-table tr:hover td { @apply bg-ivory-50/60; }
+
+@media print {
+  .no-print { display: none !important; }
+  .admin-root { background: white; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
