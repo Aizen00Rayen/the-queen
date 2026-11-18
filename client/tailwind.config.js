@@ -14,7 +14,7 @@ export default {
         mute: '#8A8076',
       },
       fontFamily: {
-        display: ['"Bodoni Moda"', 'Didot', 'serif'],
+        display: ['Fraunces', 'Georgia', 'serif'],
         sans: ['Manrope', 'system-ui', 'sans-serif'],
         arabic: ['"Noto Kufi Arabic"', 'Manrope', 'sans-serif'],
       },

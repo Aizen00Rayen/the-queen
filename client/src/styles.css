@@ -23,7 +23,9 @@ body {
   font-feature-settings: 'ss01', 'cv11';
 }
 html[dir='rtl'] body { @apply font-arabic; }
-html[dir='rtl'] .font-display { font-family: 'Noto Kufi Arabic', 'Bodoni Moda', serif; font-weight: 500; letter-spacing: 0; }
+/* Fraunces: sturdy strokes (no hairlines) so headlines stay legible over dark/gold imagery */
+@layer base { .font-display { font-weight: 500; font-variation-settings: 'opsz' 60, 'SOFT' 40; } }
+html[dir='rtl'] .font-display { font-family: 'Noto Kufi Arabic', 'Fraunces', serif; font-weight: 500; letter-spacing: 0; }
 
 ::selection { background: var(--gold); color: var(--noir); }
 
