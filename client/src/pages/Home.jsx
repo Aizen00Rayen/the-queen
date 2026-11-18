@@ -29,7 +29,7 @@ function Hero() {
     <section ref={ref} onMouseMove={onMove} className="relative h-[100svh] min-h-[680px] overflow-hidden bg-noir text-ivory">
       {/* cinematic product loop (real bottles composited on AI-generated marble & silk set) */}
       <motion.div style={{ scale, x: vx, y: vy }} initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 2, ease }}
-        className="absolute inset-x-0 bottom-0 h-[36%] lg:inset-y-0 lg:left-[22%] lg:h-full lg:w-[78%] lg:[mask-image:linear-gradient(to_right,transparent,#000_28%)] rtl:lg:left-[-12%] rtl:lg:[mask-image:linear-gradient(to_left,transparent,#000_28%)]">
+        className="absolute inset-x-0 bottom-0 h-[36%] lg:inset-y-0 lg:left-[22%] lg:h-full lg:w-[78%] lg:[mask-image:linear-gradient(to_right,transparent,#000_28%)] rtl:lg:left-[-12%] rtl:lg:right-auto rtl:lg:[mask-image:linear-gradient(to_left,transparent,#000_28%)]">
         <video className="h-full w-full object-cover object-[63%_45%]" autoPlay muted loop playsInline preload="auto" poster="/brand/v2/hero-duo.webp" aria-label="Le Duo Royal The Queen">
           <source src="/brand/v2/hero-loop.webm" type="video/webm" />
           <source src="/brand/v2/hero-loop.mp4" type="video/mp4" />
